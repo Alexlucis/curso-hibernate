@@ -1,12 +1,21 @@
 package com.seguritech.practicafinal.domain;
 
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.Subselect;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name ="personas")
-public class Persona {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_persona", discriminatorType = DiscriminatorType.STRING)
+/*@FilterDef(name = "borradoLogico")
+@Filter(name = "borradoLogico", condition = "estado = 'HABILITADO'")*/
+@Subselect("select * from personas where estado = 'HABILITADO'")
+public abstract class Persona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,15 +32,11 @@ public class Persona {
 
     private String telefono;
 
-    private Integer obra_social_id;
-
-    private Integer especialidad_id;
-
     private String estado;
 
+    @Temporal(TemporalType.DATE)
     private Date fecha_creacion;
 
-    private String tipo_persona;
 
     public Long getId() {
         return id;
@@ -81,21 +86,6 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public Integer getObra_social_id() {
-        return obra_social_id;
-    }
-
-    public void setObra_social_id(Integer obra_social_id) {
-        this.obra_social_id = obra_social_id;
-    }
-
-    public Integer getEspecialidad_id() {
-        return especialidad_id;
-    }
-
-    public void setEspecialidad_id(Integer especialidad_id) {
-        this.especialidad_id = especialidad_id;
-    }
 
     public String getEstado() {
         return estado;
@@ -113,11 +103,6 @@ public class Persona {
         this.fecha_creacion = fecha_creacion;
     }
 
-    public String getTipo_persona() {
-        return tipo_persona;
-    }
 
-    public void setTipo_persona(String tipo_persona) {
-        this.tipo_persona = tipo_persona;
-    }
-}
+
+  }
