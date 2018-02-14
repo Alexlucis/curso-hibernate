@@ -1,12 +1,15 @@
 package com.seguritech.practicafinal.domain;
 
 
+import java.util.Date;
+import javax.persistence.*;
+
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.Subselect;
+import org.springframework.cache.annotation.EnableCaching;
 
-import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Table(name ="personas")
@@ -14,7 +17,7 @@ import java.sql.Date;
 @DiscriminatorColumn(name = "tipo_persona", discriminatorType = DiscriminatorType.STRING)
 /*@FilterDef(name = "borradoLogico")
 @Filter(name = "borradoLogico", condition = "estado = 'HABILITADO'")*/
-@Subselect("select * from personas where estado = 'HABILITADO'")
+//@Subselect("select * from personas where estado = 'HABILITADO'")
 public abstract class Persona {
 
     @Id
@@ -28,14 +31,16 @@ public abstract class Persona {
 
     private String nombre;
 
-    private String e_mail;
+    @Column(name = "e_mail")
+    private String email;
 
     private String telefono;
 
     private String estado;
 
     @Temporal(TemporalType.DATE)
-    private Date fecha_creacion;
+    @Column(name = "fecha_creacion")
+    private Date fechaCreacion;
 
 
     public Long getId() {
@@ -70,13 +75,6 @@ public abstract class Persona {
         this.nombre = nombre;
     }
 
-    public String getE_mail() {
-        return e_mail;
-    }
-
-    public void setE_mail(String e_mail) {
-        this.e_mail = e_mail;
-    }
 
     public String getTelefono() {
         return telefono;
@@ -95,14 +93,20 @@ public abstract class Persona {
         this.estado = estado;
     }
 
-    public Date getFecha_creacion() {
-        return fecha_creacion;
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFecha_creacion(Date fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
-
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}

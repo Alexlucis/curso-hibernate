@@ -1,4 +1,4 @@
-package com.seguritech.practicafinal.domain.repositories;
+package com.seguritech.practicafinal.repositories;
 
 import com.seguritech.practicafinal.domain.Administrador;
 import org.springframework.data.jpa.repository.JpaRepository;

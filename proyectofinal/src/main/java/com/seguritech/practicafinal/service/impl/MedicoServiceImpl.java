@@ -1,8 +1,9 @@
 package com.seguritech.practicafinal.service.impl;
 
 import com.seguritech.practicafinal.domain.Medico;
-import com.seguritech.practicafinal.domain.repositories.MedicoRepository;
+import com.seguritech.practicafinal.repositories.MedicoRepository;
 import com.seguritech.practicafinal.service.MedicoService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,22 +20,23 @@ public class MedicoServiceImpl implements MedicoService{
     }
 
     @Override
+    @Cacheable("Medicos")
     public List<Medico> findAll() {
-        return null;
+        return medicoRepository.findAll();
     }
 
     @Override
     public Medico findOne(Long id) {
-        return null;
+        return medicoRepository.findOne(id);
     }
 
     @Override
     public void save(Medico medico) {
-
+        medicoRepository.save(medico);
     }
 
     @Override
     public void delete(Long id) {
-
+        medicoRepository.delete(id);
     }
 }

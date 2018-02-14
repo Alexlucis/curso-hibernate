@@ -1,24 +1,21 @@
 package com.seguritech.practicafinal.domain;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 
 @Entity
 @DiscriminatorValue(value = "MEDICO")
 public class Medico extends Persona {
 
+    @Column(name = "especialidad_id")
     @Enumerated(EnumType.ORDINAL)
-    private Especialidad especialidad_id;
+    private Especialidad especialidad;
 
-
-    public Especialidad getEspecialidad_id() {
-        return especialidad_id;
+    public Especialidad getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEspecialidad_id(Especialidad especialidad_id) {
-        this.especialidad_id = especialidad_id;
+    public void setEspecialidadId(Especialidad especialidadId) {
+        this.especialidad = especialidadId;
     }
 }
